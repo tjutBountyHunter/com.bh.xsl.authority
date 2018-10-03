@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.deleteMore">
+    <delete id="deleteMasterLevel">
+        delete from xsl_master_level where id in
+        <foreach collection="masterlevelids" item="masterlevelid" open="(" close=")" separator=",">
+            #{masterlevelid}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHunterLevel">
+        delete from xsl_hunter_level where id in
+        <foreach collection="hunterlevelids" item="hunterlevelid" open="(" close=")" separator=",">
+            #{hunterlevelid}
+        </foreach>
+    </delete>
+
+    <delete id="deleteAdmins">
+        delete from xsl_admin where id in
+        <foreach collection="adminids" item="adminid" open="(" close=")" separator=",">
+            #{adminid}
+        </foreach>
+    </delete>
+
+    <delete id="deleteHunterExperience">
+        delete from xsl_hunter_level_experience where id in
+        <foreach collection="hunterexperienceids" item="hunterexperienceid" open="(" close=")" separator=",">
+            #{hunterexperienceid}
+        </foreach>
+    </delete>
+
+    <delete id="deleteMasterExperience">
+        delete from xsl_master_level_experience where id in
+        <foreach collection="masterexperienceids" item="masterexperienceid" open="(" close=")" separator=",">
+            #{masterexperienceid}
+        </foreach>
+    </delete>
+</mapper>

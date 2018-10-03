@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="xsl-authority-commont" />
+        <module name="xsl-authority-dao" />
+        <module name="xsl-authority-pojo" />
+        <module name="xsl-authority-service" />
+        <module name="xsl-authority-web" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

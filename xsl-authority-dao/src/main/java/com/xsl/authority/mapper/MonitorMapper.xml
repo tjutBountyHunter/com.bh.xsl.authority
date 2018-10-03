@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.MonitorMapper">
+    <select id="getUseCountsByUrl"  resultType="java.lang.Integer">
+        SELECT
+            usecount
+        FROM
+            xsl_rule
+        WHERE
+            NAME IN (SELECT NAME FROM xsl_rule)
+    </select>
+
+    <select id="getAssginCountByUrl" resultType="java.lang.Integer">
+        SELECT
+            assgincount
+        FROM
+            xsl_rule
+        WHERE
+            NAME IN (SELECT NAME FROM xsl_rule)
+    </select>
+</mapper>

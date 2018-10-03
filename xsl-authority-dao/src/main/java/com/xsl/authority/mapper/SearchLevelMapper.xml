@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.SearchLevelMapper">
+    <select id="getHunterLevelInfo" resultType="com.xsl.authority.pojo.XslHunterLevel">
+        SELECT
+            id,
+            NAME,
+            descr,
+            createDate,
+            updateDate
+        FROM
+            xsl_hunter_level
+        WHERE
+            LEVEL = #{level}
+    </select>
+
+    <select id="getMatserLevelInfo" resultType="com.xsl.authority.pojo.XslMasterLevel">
+        SELECT
+            id,
+            NAME,
+            descr,
+            createDate,
+            updateDate
+        FROM
+            xsl_master_level
+        WHERE
+            LEVEL = #{level}
+    </select>
+</mapper>

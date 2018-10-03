@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	   http://www.springframework.org/schema/context
+	   http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+    <!-- 扫描包加载Service实现类 -->
+    <context:component-scan base-package="com.xsl.authority.service"/>
+    <context:component-scan base-package="com.xsl.authority.export"/>
+    <context:component-scan base-package="com.xsl.authority.redis"/>
+     <!--使用dubbo发布服务-->
+     <!--提供方应用信息，用于计算依赖关系-->
+    <dubbo:application name="xsl-authority" />
+    <dubbo:protocol name="dubbo" port="20880" />
+    <!--声明需要暴露的服务接口-->
+    <dubbo:service interface="com.xsl.authority.export.SearchExperienceService" ref="searchExperienceServiceImpl" timeout="600000"/>
+    <dubbo:service interface="com.xsl.authority.export.SearchLevelService" ref="searchLevelServiceImpl" timeout="600000"/>
+    <dubbo:service interface="com.xsl.authority.service.AuthorizateService" ref="authorizateServiceImpl" timeout="600000"/>
+    <dubbo:registry protocol="zookeeper" address="47.93.19.164:2181" />
+     <!--用dubbo协议在20880端口暴露服务-->
+</beans>

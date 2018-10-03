@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.PrivilegeRuleMapper">
+    <insert id="insertPrivilegeRules">
+        insert into xsl_privilege_rule(
+            pid,name,url,token,priority
+        )value (
+            #{pid},#{name},#{url},#{token},#{priority}
+        )
+    </insert>
+    <update id="updatePrivilegeRule">
+        update xsl_privilege_rule
+        set name = #{name},url = #{url}
+        where id = #{id}
+    </update>
+
+    <delete id="deletePrivilegeRuleById">
+        delete from xsl_privilege_rule where id = #{id}
+    </delete>
+</mapper>

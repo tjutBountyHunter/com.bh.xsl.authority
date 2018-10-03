@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.GroupRuleMapper">
+    <insert id="insertGroupRules">
+        insert into xsl_group_rule(
+            groupId,ruleid,name,url,token
+        )value (
+            #{groupid},#{ruleid},#{name},#{url},#{token}
+        )
+    </insert>
+    <update id="updateGroupRule">
+        update xsl_group_rule
+        set name = #{name},url = #{url}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteGroupRuleById">
+        delete from xsl_group_rule where id = #{id}
+    </delete>
+</mapper>

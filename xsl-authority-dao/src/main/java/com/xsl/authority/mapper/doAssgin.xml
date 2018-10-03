@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.doAssgin">
+    <insert id="inserthunterlevelRule">
+        insert into xsl_hunter_level_rule (hunterLevelId, ruleId,createDate) values
+        <foreach collection="ruleids" item="ruleid" separator=",">
+            ( #{hunterlevelid}, #{ruleid},#{createdate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteHunterLevelRules">
+        delete from xsl_hunter_level_rule where hunterLevelId = #{hunterlevelid}
+    </delete>
+
+    <insert id="insertMasterlevelRule">
+        insert into xsl_master_level_rule (masterLevelId, ruleId,createDate) values
+        <foreach collection="ruleids" item="ruleid" separator=",">
+            ( #{masterlevelid}, #{ruleid},#{createdate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteMasterLevelRules">
+        delete from xsl_master_level_rule where masterLevelId = #{masterlevelid}
+    </delete>
+
+    <insert id="insertAdminRule">
+        insert into xsl_admin_rule (adminId, ruleId,createDate) values
+        <foreach collection="ruleids" item="ruleid" separator=",">
+            ( #{adminid}, #{ruleid},#{createdate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAdminRules">
+        delete from xsl_admin_rule where adminId = #{adminid}
+    </delete>
+    <insert id="inserthunterlevelPrivilege">
+        insert into xsl_hunter_level_privilege (hunterLevelId, privilegeId,createDate) values
+        <foreach collection="privilegeids" item="privilegeid" separator=",">
+            ( #{hunterlevelid}, #{privilegeid},#{createdate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteHunterLevelPrivilege">
+        delete from xsl_hunter_level_privilege where hunterLevelId = #{hunterlevelid}
+    </delete>
+
+    <insert id="insertMasterlevelPrivilege">
+        insert into xsl_master_level_privilege (masterLevelId, privilegeId,createDate) values
+        <foreach collection="privilegeids" item="privilegeid" separator=",">
+            ( #{masterlevelid}, #{privilegeid},#{createdate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteMasterLevelPrivilege">
+        delete from xsl_master_level_privilege where masterLevelId = #{masterlevelid}
+    </delete>
+</mapper>

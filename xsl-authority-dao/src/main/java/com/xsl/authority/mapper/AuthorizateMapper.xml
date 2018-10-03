@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.AuthorizateMapper">
+    <select id="getAdminRulesById" resultType="com.xsl.authority.pojo.XslLevelRule">
+        SELECT id,pid,name,url,token,priority
+        FROM xsl_rule
+        WHERE
+            id IN (
+                SELECT
+                    ruleid
+                FROM
+                    xsl_admin_rule
+                WHERE
+                    adminid IN (
+                        SELECT id
+                        FROM  xsl_admin
+                        WHERE id = #{id}))
+    </select>
+
+    <select id="getHunterRulesById" resultType="com.xsl.authority.pojo.XslLevelRule">
+        SELECT
+            id,
+            pid,
+            name,
+            url,
+            token,
+            priority
+        FROM
+            xsl_rule
+        WHERE
+            id IN (
+                SELECT
+                    ruleid
+                FROM
+                    xsl_hunter_level_rule
+                WHERE
+                    hunterlevelId IN (
+                        SELECT
+                            id
+                        FROM
+                            xsl_hunter_level
+                        WHERE
+                            LEVEL = (
+                                SELECT
+                                    LEVEL
+                                FROM
+                                    xsl_hunter
+                                WHERE
+                                    id = #{hunterId}
+                            )
+                    )
+            )
+    </select>
+
+    <select id="getMasterRulesById" resultType="com.xsl.authority.pojo.XslLevelRule">
+        SELECT
+            id,
+            pid,
+            name,
+            url,
+            token,
+            priority
+        FROM
+            xsl_rule
+        WHERE
+            id IN (
+                SELECT
+                    ruleid
+                FROM
+                    xsl_master_level_rule
+                WHERE
+                    masterlevelId IN (
+                        SELECT
+                            id
+                        FROM
+                            xsl_master_level
+                        WHERE
+                            LEVEL = (
+                                SELECT
+                                    LEVEL
+                                FROM
+                                    xsl_master
+                                WHERE
+                                    id = #{masterId}
+                            )
+                    )
+            )
+    </select>
+</mapper>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.LevelRuleMapper">
+    <insert id="insertRules">
+        insert into xsl_rule(
+            pid,name,url,token,usecount,priority
+        )value (
+            #{pid},#{name},#{url},#{token},#{usecount},#{priority}
+        )
+    </insert>
+    <update id="updateRule">
+        update xsl_rule
+        set name = #{name},url=#{url}
+        where id = #{id}
+    </update>
+
+    <delete id="deleteRuleById">
+        delete from xsl_rule where id = #{id}
+    </delete>
+</mapper>

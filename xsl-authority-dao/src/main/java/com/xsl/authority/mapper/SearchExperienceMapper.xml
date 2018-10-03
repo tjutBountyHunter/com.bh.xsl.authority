@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.SearchExperienceMapper">
+    <select id="getHunterExperience" resultType="java.lang.Integer">
+        SELECT
+          experience
+        FROM
+            xsl_hunter_level_experience
+        WHERE
+            LEVEL = #{level}
+    </select>
+
+    <select id="getMasterExperience" resultType="java.lang.Integer">
+        SELECT
+          experience
+        FROM
+            xsl_master_level_experience
+        WHERE
+            LEVEL = #{level}
+    </select>
+</mapper>
