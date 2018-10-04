@@ -6,6 +6,10 @@ import com.xsl.authority.utils.XslResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+/**
+ * @author 梁俊伟
+ * 提供经验查询的实现类
+ */
 @Service
 public class SearchExperienceServiceImpl implements SearchExperienceService {
 

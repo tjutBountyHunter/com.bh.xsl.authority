@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * @author 梁俊伟
  * 管理员Service
  *
  */
@@ -100,7 +101,6 @@ public class AdminServiceImpl implements AdminService {
      */
     @Override
     public XslResult updateAdmin(XslAdmin xslAdmin) {
-
         try {
             //补全pojo
             //补全管理员的pojo
@@ -163,6 +163,12 @@ public class AdminServiceImpl implements AdminService {
         return null;
     }
 
+    /**
+     * 插入权限信息
+     * @param adminid
+     * @param ruleids
+     * @return
+     */
     @Override
     public XslResult inseAdminRule(Integer adminid, Integer[] ruleids) {
         try {

@@ -27,6 +27,9 @@ public class GetLevelRuleImpl implements GetLevelRule {
     @Value("${XSL_AUTHORITY_MASTER_REDIS_KEY}")
     private String XSL_AUTHORITY_MASTER_REDIS_KEY;
 
+    @Value("${XSL_AUTHORITY_MANAGER_REDIS_KEY}")
+    private String XSL_AUTHORITY_MANAGER_REDIS_KEY;
+
     @Override
     public List<XslLevelRule> getHunterRule(Integer hunterId) {
         try {
@@ -64,6 +67,32 @@ public class GetLevelRuleImpl implements GetLevelRule {
         try {
             String caheString = JsonUtils.objectToJson(xslLevelRules);
             jedisClient.hset(XSL_AUTHORITY_MASTER_REDIS_KEY,masterId+"",caheString);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return xslLevelRules;
+    }
+
+    /**
+     * 管理员权限查询添加缓存
+     * @param managerid
+     * @return
+     */
+    @Override
+    public List<XslLevelRule> getManagerRule(Integer managerid) {
+        try {
+            String result = jedisClient.hget(XSL_AUTHORITY_MANAGER_REDIS_KEY,managerid+"");
+            if(!StringUtils.isBlank(result)){
+                List<XslLevelRule> resultList = JsonUtils.jsonToList(result,XslLevelRule.class);
+                return resultList;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        List<XslLevelRule> xslLevelRules = authorizateMapper.getManagerRulesById(managerid);
+        try {
+            String caheString = JsonUtils.objectToJson(xslLevelRules);
+            jedisClient.hset(XSL_AUTHORITY_MASTER_REDIS_KEY,managerid+"",caheString);
         }catch (Exception e){
             e.printStackTrace();
         }

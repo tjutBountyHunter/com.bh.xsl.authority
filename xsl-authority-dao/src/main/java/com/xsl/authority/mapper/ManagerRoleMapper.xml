@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xsl.authority.mapper.ManagerRoleMapper">
+    <insert id="insertManagerRoles">
+        insert into xsl_manager_role (managerid,roleid,createDate,updateDate) values
+        <foreach collection="roleids" item="roleid" separator=",">
+            (#{managerid},#{roleid},#{createdate},#{updatedate})
+        </foreach>
+    </insert>
+
+    <update id="delteManagerRoles">
+        update xsl_manager_role set state =1 where managerid = #{managerid} and roleid in
+        <foreach collection="roleids" item="roleid" open="(" close=")" separator=",">
+            #{roleid}
+        </foreach>
+    </update>
+</mapper>

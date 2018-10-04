@@ -9,4 +9,6 @@ public interface GetLevelRule {
     List<XslLevelRule> getHunterRule(Integer hunterId);
 
     List<XslLevelRule> getMatserRule(Integer masterId);
+
+    List<XslLevelRule> getManagerRule(Integer managerid);
 }

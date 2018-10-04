@@ -57,7 +57,7 @@
                         <button type="button" id="queryBtn" class="btn btn-warning"><i class="glyphicon glyphicon-search"></i> 查询</button>
                     </form>
                     <button type="button" class="btn btn-danger" style="float:right;margin-left:10px;" onclick="deleteMessages()"><i class=" glyphicon glyphicon-remove"></i> 删除</button>
-                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/managers/add'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
+                    <button type="button" class="btn btn-primary" style="float:right;" onclick="window.location.href='${APP_PATH}/managerrole/add'"><i class="glyphicon glyphicon-plus"></i> 新增</button>
                     <br>
                     <hr style="clear:both;">
                     <div class="table-responsive">
@@ -68,9 +68,9 @@
                                     <th width="40">#</th>
                                     <th width="40"><input type="checkbox" id="allSelectBox"></th>
                                     <th>id</th>
-                                    <th>管理员名</th>
+                                    <th>管理员角色名</th>
                                     <th>创建时间</th>
-                                    <th>最后登陆时间</th>
+                                    <th>更新时间</th>
                                     <th width="100">操作</th>
                                 </tr>
                                 </thead>
@@ -145,7 +145,7 @@
         }
         $.ajax({
             type : "POST",
-            url : "${APP_PATH}/managers/pageQuery",
+            url : "${APP_PATH}/managerrole/pageQuery",
             data : jsonData,
             beforeSend : function () {
                 loadingIndex = layer.msg("处理中",{icon:16});
@@ -156,20 +156,21 @@
                     //局部刷新页面数据
                     var tableContent = "";
                     var pageContent = ""
-                    var managerPage = result.data;
-                    var managers = managerPage.datas;
-                    $.each(managers, function(i, manager){
+
+                    var rolePage = result.data;
+                    var roles = rolePage.datas;
+                    $.each(roles, function(i, role){
                         tableContent +='<tr>';
                         tableContent +='    <td>'+(i+1)+'</td>';
-                        tableContent +='    <td><input type="checkbox" name="managerid" value="'+manager.id+'"></td>';
-                        tableContent +='    <td>'+manager.id+'</td>';
-                        tableContent +='    <td>'+manager.managerName+'</td>';
-                        tableContent +='    <td>'+manager.creatTime+'</td>';
-                        tableContent +='    <td>'+manager.lastLoginDate+'</td>';
+                        tableContent +='    <td><input type="checkbox" name="roleid" value="'+role.id+'"></td>';
+                        tableContent +='    <td>'+role.id+'</td>';
+                        tableContent +='    <td>'+role.name+'</td>';
+                        tableContent +='    <td>'+role.createdate+'</td>';
+                        tableContent +='    <td>'+role.updatedate+'</td>';
                         tableContent +='    <td>';
-                        tableContent +='        <button type="button" onclick="goAssignRolePage('+manager.id+')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
-                        tableContent +='        <button type="button" onclick="updateMessage('+manager.id+')" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
-                        tableContent +='        <button type="button" onclick="deleteMessage('+manager.id+',\''+manager.managerName+'\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
+                        tableContent +='        <button type="button" onclick="goAssignPage('+role.id+')" class="btn btn-success btn-xs"><i class=" glyphicon glyphicon-check"></i></button>';
+                        tableContent +='        <button type="button" onclick="updateMessage('+role.id+')" class="btn btn-primary btn-xs"><i class=" glyphicon glyphicon-pencil"></i></button>';
+                        tableContent +='        <button type="button" onclick="deleteMessage('+role.id+',\''+role.name+'\')" class="btn btn-danger btn-xs"><i class=" glyphicon glyphicon-remove"></i></button>';
                         tableContent +='    </td>';
                         tableContent +='</tr>';
                     });
@@ -178,7 +179,7 @@
                         pageContent += '<li><a href="#" onclick="pageQuery('+(pageno-1)+')">上一页</a></li>';
                     }
 
-                    for ( var i = 1; i <= managerPage.totalno; i++ ) {
+                    for ( var i = 1; i <= rolePage.totalno; i++ ) {
                         if ( i == pageno  ) {
                             pageContent += '<li class="active"><a  href="#">'+i+'</a></li>';
                         } else {
@@ -186,7 +187,7 @@
                         }
                     }
 
-                    if ( pageno < managerPage.totalno ) {
+                    if ( pageno < rolePage.totalno ) {
                         pageContent += '<li><a href="#" onclick="pageQuery('+(pageno+1)+')">下一页</a></li>';
                     }
                     $("#adminData").html(tableContent);
@@ -202,25 +203,23 @@
     }
 
     function updateMessage(id) {
-        console.log(id);
-        window.location.href = "${APP_PATH}/managers/edit?id="+id;
+        window.location.href = "${APP_PATH}/managerrole/edit?id="+id;
     }
 
     function deleteMessage( id, name ) {
-        console.log(id);
-        layer.confirm("删除管理员名称为【"+name+"】, 是否继续",  {icon: 3, title:'提示'}, function(cindex){
+        layer.confirm("删除管理员角色名称为【"+name+"】, 是否继续",  {icon: 3, title:'提示'}, function(cindex){
 
             // 删除用户信息
             $.ajax({
                 type : "POST",
-                url  : "${APP_PATH}/managers/delete",
+                url  : "${APP_PATH}/managerrole/delete",
                 data : { id : id },
 
                 success : function(data) {
                     if ( data.status==200 ) {
                         pageQuery(1);
                     } else {
-                        layer.msg("管理员信息删除失败", {time:2000, icon:5, shift:6}, function(){
+                        layer.msg("管理员角色信息删除失败", {time:2000, icon:5, shift:6}, function(){
 
                         });
                     }
@@ -242,10 +241,9 @@
         } else {
             layer.confirm("删除选择的管理员信息, 是否继续",  {icon: 3, title:'提示'}, function(cindex){
                 // 删除选择的用户信息
-                console.log($("#adminForm").serialize());
                 $.ajax({
                     type : "POST",
-                    url  : "${APP_PATH}/managers/deletes",
+                    url  : "${APP_PATH}/managerrole/deletes",
                     data : $("#adminForm").serialize(),
                     success : function(data) {
                         if ( data.status==200 ) {
@@ -253,7 +251,7 @@
                                 pageQuery(1);
                             });
                         } else {
-                            layer.msg("管理员信息删除失败", {time:2000, icon:5, shift:6}, function(){
+                            layer.msg("管理员角色信息删除失败", {time:2000, icon:5, shift:6}, function(){
 
                             });
                         }
@@ -268,11 +266,7 @@
     }
 
     function goAssignPage(id) {
-        window.location.href = "${APP_PATH}/managers/adminassgin?id="+id;
-    }
-
-    function goAssignRolePage(id) {
-        window.location.href = "${APP_PATH}/managers/assginrole?id="+id;
+        window.location.href = "${APP_PATH}/managerrole/managerassgin?id="+id;
     }
 </script>
 </body>

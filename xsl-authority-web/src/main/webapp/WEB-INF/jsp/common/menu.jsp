@@ -1,7 +1,7 @@
 <%@page pageEncoding="UTF-8"%>
 <ul style="padding-left:0px;" class="list-group">
     <li class="list-group-item tree-closed">
-        <span><i class="glyphicon glyphicon-king"></i> 角色管理 <span class="badge" style="float:right">5</span></span>
+        <span><i class="glyphicon glyphicon-king"></i> 角色管理 <span class="badge" style="float:right">6</span></span>
         <ul style="margin-top:10px;display:none;">
             <li style="height:40px">
                 <a href="${APP_PATH}/hunterlevel/index"><i class= "glyphicon glyphicon-king"></i> 猎人等级管理</a>
@@ -10,7 +10,10 @@
                 <a href="${APP_PATH}/masterlevel/index"><i class="glyphicon glyphicon-king"></i> 雇主等级管理</a>
             </li>
             <li style="height:40px;">
-                <a href="${APP_PATH}/admin/index"><i class="glyphicon glyphicon-king"></i> 管理员管理</a>
+                <a href="${APP_PATH}/managers/index"><i class="glyphicon glyphicon-king"></i> 管理员管理</a>
+            </li>
+            <li style="height:40px;">
+                <a href="${APP_PATH}/managerrole/index"><i class="glyphicon glyphicon-king"></i> 管理员角色管理</a>
             </li>
             <li style="height:40px;">
                 <a href="${APP_PATH}/hunterexperience/index"><i class="glyphicon glyphicon-star"></i>猎人经验值管理</a>

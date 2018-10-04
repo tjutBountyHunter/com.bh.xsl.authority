@@ -230,4 +230,38 @@ public class LevelRuleServiceImpl implements LevelRuleService {
         return rules;
     }
 
+    /**
+     * 回显管理员已选权限
+     * @param roleid
+     * @return
+     */
+    @Override
+    public List<XslLevelRule> loadManagerAssignData(Integer roleid) {
+        List<XslLevelRule> rules = new ArrayList<>();
+        List<XslLevelRule> rs = levelRuleMapper.getAll();
+        //获取当前角色已经分配的权限
+        List<Integer> ruleids = levelRuleMapper.getRuleIdsByRoleid(roleid);
+
+        //读取树结构
+        Map<Integer,XslLevelRule> xslLevelRuleMap = new HashMap<Integer, XslLevelRule>();
+        for (XslLevelRule r:rs){
+            if (ruleids.contains(r.getId())){
+                r.setChecked(true);
+            }else{
+                r.setChecked(false);
+            }
+            //遍历得到所有节点
+            xslLevelRuleMap.put(r.getId(),r);
+        }
+        for(XslLevelRule r : rs){
+            XslLevelRule child = r;
+            if(child.getPid()==0){
+                rules.add(r);
+            }else {
+                XslLevelRule parent = xslLevelRuleMap.get(child.getPid());
+                parent.getChildren().add(child);
+            }
+        }
+        return rules;
+    }
 }

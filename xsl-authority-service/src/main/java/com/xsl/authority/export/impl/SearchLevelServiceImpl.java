@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * 查询等级信息
+ * @author 梁俊伟
+ * 提供查询等级信息的实现类
  */
 @Service
 public class SearchLevelServiceImpl implements SearchLevelService {

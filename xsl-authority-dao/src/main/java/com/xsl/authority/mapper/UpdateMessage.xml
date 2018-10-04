@@ -11,4 +11,25 @@
         set name = #{name},phone=#{phone},email=#{email},updateDate=#{updatedate}
         where id = #{id}
     </update>
+
+    <update id="updateManager">
+        update xsl_manager set manager_name = #{managerName},manager_password = #{managerPassword}
+        where id = #{id}
+     </update>
+    <update id="updateManagerState">
+        update xsl_manager
+        set status = #{status}
+        where id = #{id}
+    </update>
+
+    <update id="updateManagerRole">
+        update xsl_role set name = #{name},updateDate=#{updatedate}
+        where id = #{id}
+    </update>
+
+    <update id="deleteManagerRoleById">
+        update xsl_role
+        set state = #{state}
+        where id = #{id}
+    </update>
 </mapper>

@@ -48,7 +48,7 @@
             <h3 class="page-header">欢迎来到权限管理系统</h3>
 
             <div class="row placeholders">
-                <img src="img/demo05.jpg" style="width: 97%;height:480px;"/>
+                <img src="img/demo06.png" style="width:97%;height:auto;"/>
             </div>
         </div>
     </div>

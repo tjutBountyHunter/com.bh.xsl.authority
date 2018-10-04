@@ -87,4 +87,32 @@
                     )
             )
     </select>
+
+    <select id="getManagerRulesById" resultType="com.xsl.authority.pojo.XslLevelRule">
+      SELECT
+		  id,
+          pid,
+          name,
+          url,
+          token,
+          priority
+          FROM
+              xsl_rule
+          WHERE
+              id IN (
+                  SELECT
+                      ruleid
+                  FROM
+                      xsl_role_rule
+                  WHERE
+                      roleid IN (
+                          SELECT
+                              roleid
+                          FROM
+                              xsl_manager_role
+                          WHERE
+                            managerid = 1
+                  )
+          )
+    </select>
 </mapper>

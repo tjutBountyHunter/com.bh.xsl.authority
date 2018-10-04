@@ -73,7 +73,31 @@ public interface PageSearch {
      */
     int getMasterLevelExperienceTotalCount(Map<String,Object> map);
 
+    /**
+     * 得到管理员分页信息
+     * @param map
+     * @return
+     */
     List<XslManager> getManagerList(Map<String,Object> map);
 
+    /**
+     * 得到管理员总数
+     * @param map
+     * @return
+     */
     int getManagerTotalCount(Map<String,Object> map);
+
+    /**
+     * 得到管理员角色分页信息
+     * @param map
+     * @return
+     */
+    List<XslRole> getManagerRolesList(Map<String,Object> map);
+
+    /**
+     * 得到管理员总数
+     * @param map
+     * @return
+     */
+    int getManagerRoleTotalCount(Map<String,Object> map);
 }

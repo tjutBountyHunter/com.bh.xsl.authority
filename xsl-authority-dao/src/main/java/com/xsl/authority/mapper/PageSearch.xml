@@ -2,6 +2,15 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xsl.authority.mapper.PageSearch">
+    <resultMap id="BaseResultMap" type="com.xsl.authority.pojo.XslManager" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="manager_name" property="managerName" jdbcType="VARCHAR" />
+        <result column="manager_password" property="managerPassword" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="creat_time" property="creatTime" jdbcType="DATE" javaType="String" />
+        <result column="remove_time" property="removeTime" jdbcType="DATE" javaType="String" />
+        <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" javaType="String"/>
+    </resultMap>
     <select id="getHunterList" resultType="com.xsl.authority.pojo.XslHunterLevel">
         SELECT
         id,level,name,descr,createDate,updateDate from xsl_hunter_level
@@ -18,7 +27,7 @@
         from xsl_hunter_level
         <where>
             <if test="queryText != null">
-                and name like concat('%', #{queryText}, '%')
+                name like concat('%', #{queryText}, '%')
             </if>
         </where>
     </select>
@@ -39,7 +48,7 @@
         from xsl_master_level
         <where>
             <if test="queryText != null">
-                and name like concat('%', #{queryText}, '%')
+                name like concat('%', #{queryText}, '%')
             </if>
         </where>
     </select>
@@ -60,9 +69,11 @@
         count(*)
         from xsl_admin
         <where>
+            state = 1
             <if test="queryText != null">
                 and name like concat('%', #{queryText}, '%')
             </if>
+
         </where>
     </select>
 
@@ -71,7 +82,7 @@
              id,hunterLevelId,level,experience,createDate,updateDate from xsl_hunter_level_experience
         <where>
             <if test="queryText!=null">
-                and name like concat('%',#{queryText},'%')
+                name like concat('%',#{queryText},'%') and
             </if>
             id >=1 order by id limit #{start},#{size}
         </where>
@@ -82,7 +93,7 @@
         from xsl_hunter_level_experience
         <where>
             <if test="queryText != null">
-                and name like concat('%', #{queryText}, '%')
+                name like concat('%', #{queryText}, '%')
             </if>
         </where>
     </select>
@@ -92,7 +103,7 @@
         id,masterLevelId,level,experience,createDate,updateDate from xsl_master_level_experience
         <where>
             <if test="queryText!=null">
-                and name like concat('%',#{queryText},'%')
+                name like concat('%',#{queryText},'%') and
             </if>
             id >=1 order by id limit #{start},#{size}
         </where>
@@ -103,19 +114,19 @@
         from xsl_master_level_experience
         <where>
             <if test="queryText != null">
-                and name like concat('%', #{queryText}, '%')
+                name like concat('%', #{queryText}, '%')
             </if>
         </where>
     </select>
 
-    <select id="getManagerList" resultType="com.xsl.authority.pojo.XslManager">
+    <select id="getManagerList" resultMap="BaseResultMap">
         SELECT
         id,manager_name,creat_time,last_login_date from xsl_manager
         <where>
             <if test="queryText!=null">
-                and manager_name like concat('%',#{queryText},'%')
+                manager_name like concat('%',#{queryText},'%') and
             </if>
-            id >=1 order by id limit #{start},#{size}
+            status = 0 and id >=1 order by id limit #{start},#{size}
         </where>
     </select>
     <select id="getManagerTotalCount" resultType="java.lang.Integer">
@@ -123,8 +134,31 @@
         count(*)
         from xsl_manager
         <where>
+            status = 0
             <if test="queryText != null">
                 and manager_name like concat('%', #{queryText}, '%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getManagerRolesList" resultType="com.xsl.authority.pojo.XslRole">
+        SELECT
+        id,name,createDate,updateDate from xsl_role
+        <where>
+            <if test="queryText!=null">
+                name like concat('%',#{queryText},'%') and
+            </if>
+            state = 0 and id >=1 order by id limit #{start},#{size}
+        </where>
+    </select>
+    <select id="getManagerRoleTotalCount" resultType="java.lang.Integer">
+        select
+        count(*)
+        from xsl_role
+        <where>
+            state = 0
+            <if test="queryText != null">
+                and name like concat('%', #{queryText}, '%')
             </if>
         </where>
     </select>

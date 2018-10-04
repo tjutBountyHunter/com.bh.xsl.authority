@@ -26,11 +26,11 @@ public class AuthorizateServiceImpl implements AuthorizateService {
     /**
      * 获取管理员所拥有的权限
      * @param session
-     * @param id
+     * @param managerid
      */
     @Override
-    public void AuthorityzatrByUrl(HttpSession session,Integer id) {
-        List<XslLevelRule> xslLevelRules = authorizateMapper.getAdminRulesById(id);
+    public void AuthorityzatrByUrl(HttpSession session,Integer managerid) {
+        List<XslLevelRule> xslLevelRules = getLevelRule.getManagerRule(managerid);
         Map<Integer,XslLevelRule> xslLevelRuleMap = new HashMap<Integer, XslLevelRule>();
         XslLevelRule root = null;
         Set<String> uriSet = new HashSet<String>();
@@ -60,7 +60,6 @@ public class AuthorizateServiceImpl implements AuthorizateService {
      */
     @Override
     public void AuthorityzatrHunterByUrl(HttpSession session, Integer hunterId) {
-
         int assgincount;
         //得到某猎人等级所拥有的权限
         List<XslLevelRule> xslLevelRules = getLevelRule.getHunterRule(hunterId);

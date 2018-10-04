@@ -78,6 +78,19 @@ public class LevelRuleController {
         rules = levelRuleService.loadAdminAssignData(adminid);
         return rules;
     }
+
+    /**
+     * 回显管理员已选权限
+     * @return
+     */
+    @RequestMapping("/loadManagerAssignData")
+    @ResponseBody
+    public Object loadManagerAssignData(Integer roleid){
+        List<XslLevelRule> rules = new ArrayList<>();
+        rules = levelRuleService.loadManagerAssignData(roleid);
+        return rules;
+    }
+
     /**
      * 跳转添加权限页面
      * @return

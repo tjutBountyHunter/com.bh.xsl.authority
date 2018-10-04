@@ -36,4 +36,18 @@
             #{masterexperienceid}
         </foreach>
     </delete>
+
+    <delete id="deleteManagers">
+        delete from xsl_manager where id in
+        <foreach collection="managerids" item="managerid" open="(" close=")" separator=",">
+            #{managerid}
+        </foreach>
+    </delete>
+
+    <update id="deleteManagerRoles">
+         update xsl_role set state = 1 where id in
+        <foreach collection="roleids" item="roleid" open="(" close=")" separator=",">
+            #{roleid}
+        </foreach>
+    </update>
 </mapper>

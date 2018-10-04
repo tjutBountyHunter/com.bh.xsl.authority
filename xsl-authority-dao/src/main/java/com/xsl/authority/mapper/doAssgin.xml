@@ -55,4 +55,15 @@
     <delete id="deleteMasterLevelPrivilege">
         delete from xsl_master_level_privilege where masterLevelId = #{masterlevelid}
     </delete>
+
+    <insert id="insertManagerRules">
+        insert into xsl_role_rule (roleId, ruleId,createDate) values
+        <foreach collection="ruleids" item="ruleid" separator=",">
+            ( #{roleid}, #{ruleid},#{createdate})
+        </foreach>
+    </insert>
+
+    <delete id="deleteManagerRules">
+        delete from xsl_role_rule where roleId = #{roleid}
+    </delete>
 </mapper>

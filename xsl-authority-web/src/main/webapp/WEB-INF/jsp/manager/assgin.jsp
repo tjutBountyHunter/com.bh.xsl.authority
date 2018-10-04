@@ -48,13 +48,8 @@
                     <h3 class="panel-title"><i class="glyphicon glyphicon-th"></i> 数据列表</h3>
                 </div>
                 <div class="panel-body">
-                    <blockquote style="border-left: 5px solid #f60;color:#f60;padding: 0 0 0 20px;margin-left: 50px;margin-top: 20px">
-                        <b> 权限分配情况</b>
-                    </blockquote>
-                    <div class="col-sm-9 col-md-9 column" style="margin-left: 150px;margin-top: 20px">
-
-                        <div id="main" style="width: 650px;height:400px;"></div>
-                    </div>
+                    <button class="btn btn-success" onclick="doAssign()">分配权限</button>
+                    <ul id="ruleTree" class="ztree" style="margin-top: 10px"></ul>
                 </div>
             </div>
         </div>
@@ -64,10 +59,10 @@
 <script src="${APP_PATH}/jquery/jquery-2.1.1.min.js"></script>
 <script src="${APP_PATH}/bootstrap/js/bootstrap.min.js"></script>
 <script src="${APP_PATH}/script/docs.min.js"></script>
-<script src="${APP_PATH}/script/echarts.js"></script>
 <script src="${APP_PATH}/layer/layer.js"></script>
+<script src="${APP_PATH}/ztree/jquery.ztree.all-3.5.min.js"></script>
 <script type="text/javascript">
-
+    var likeflg = false;
     $(function () {
         $(".list-group-item").click(function(){
             if ( $(this).find("ul") ) {
@@ -79,74 +74,66 @@
                 }
             }
         });
-    });
-    function loadData(option) {
-        $.ajax({
-            type : "POST",
-            url : "${APP_PATH}/monitor/monitorassgin",
-
-            beforeSend : function () {
-                loadingIndex = layer.msg("处理中",{icon:16});
+        console.log(${param.id});
+        var setting = {
+            check : {
+                enable : true
             },
-            success : function(result){
-                layer.close(loadingIndex);
-                if (result.status == 200){
-                    var rulemonitor = result.data;
-                    var rulenames = rulemonitor.categories;
-                    var rulecount = rulemonitor.data;
-                    option.legend.data = [];
-                    option.series[0].data = [];
-                    for (var i = 0; i < rulenames.length; i++) {
-                        console.log(rulenames + "---" + rulecount);
-                        option.legend.data.push(rulenames[i]);
-                        option.series[0].data.push({
-                            name: rulenames[i],
-                            value: rulecount[i]
+            async : {
+                enable :true,
+                url : "${APP_PATH}/levelrule/loadAdminAssignData?adminid=${param.id}",
+                autoParam : ["id","name=n","level=lv"]
+            },
+            view: {
+                selectedMulti: false,
+                addDiyDom: function(treeId, treeNode){
+                    var icoObj = $("#" + treeNode.tId + "_ico"); // tId = permissionTree_1, $("#permissionTree_1_ico")
+                    if ( treeNode.icon ) {
+                        icoObj.removeClass("button ico_docu ico_open").addClass(treeNode.icon).css("background","");
+                    }
+                },
+            }
+        };
+        
+        $.fn.zTree.init($("#ruleTree"), setting);
+    });
+
+    function doAssign() {
+        var treeObj = $.fn.zTree.getZTreeObj("ruleTree");
+        var nodes = treeObj.getCheckedNodes(true);
+        if ( nodes.length == 0 ) {
+            layer.msg("请选择需要分配的权限", {time:2000, icon:5, shift:6}, function(){
+
+            });
+        } else {
+
+            var s = "adminid=${param.id}";
+            console.log(s);
+            $.each(nodes, function(i, node){
+                s += "&ruleids="+node.id
+            });
+            $.ajax({
+                type : "POST",
+                url  : "${APP_PATH}/managers/doAssign",
+                data : s,
+                success : function (data) {
+                    console.log(data.status);
+                    if ( data.status == 200 ) {
+                        layer.msg("分配权限成功", {time:2000, icon:6}, function(){
+                            window.location.href = "${APP_PATH}/managers/index";
+                        });
+                    } else {
+                        layer.msg("分配权限失败", {time:2000, icon:5, shift:6}, function(){
+
                         });
                     }
-                    myChart.setOption(option);
                 }
-            }
-        })
+            });
+        }
     }
-
-    var myChart = echarts.init(document.getElementById('main'));
-
-    // 指定图表的配置项和数据
-    var option = {
-        title : {
-            text: '权限分配情况表',
-            x:'60%'
-        },
-        tooltip : {
-            trigger: 'item',
-            formatter: "{a} <br/>{b} : {c} ({d}%)"
-        },
-        legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: []
-        },
-        series : [
-            {
-                name: '权限调用',
-                type: 'pie',
-                radius : '55%',
-                center: ['70%', '60%'],
-                data:[
-                ],
-                itemStyle: {
-                    emphasis: {
-                        shadowBlur: 10,
-                        shadowOffsetX: 0,
-                        shadowColor: 'rgba(0, 0, 0, 0.5)'
-                    }
-                }
-            }
-        ]
-    };
-
-    loadData(option)
 </script>
+</body>
+</html>
+
 </body>
 </html>
