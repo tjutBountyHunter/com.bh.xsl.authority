@@ -1,15 +1,13 @@
 package com.xsl.authority.pojo;
 
-import java.io.Serializable;
-
-public class XslHunterLevel implements Serializable {
+public class XslManagerRole {
     private Integer id;
 
-    private Short level;
+    private Integer managerid;
 
-    private String name;
+    private Integer roleid;
 
-    private String descr;
+    private Byte state;
 
     private String createdate;
 
@@ -23,28 +21,28 @@ public class XslHunterLevel implements Serializable {
         this.id = id;
     }
 
-    public Short getLevel() {
-        return level;
+    public Integer getManagerid() {
+        return managerid;
     }
 
-    public void setLevel(Short level) {
-        this.level = level;
+    public void setManagerid(Integer managerid) {
+        this.managerid = managerid;
     }
 
-    public String getName() {
-        return name;
+    public Integer getRoleid() {
+        return roleid;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setRoleid(Integer roleid) {
+        this.roleid = roleid;
     }
 
-    public String getDescr() {
-        return descr;
+    public Byte getState() {
+        return state;
     }
 
-    public void setDescr(String descr) {
-        this.descr = descr == null ? null : descr.trim();
+    public void setState(Byte state) {
+        this.state = state;
     }
 
     public String getCreatedate() {

@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="xsl-authority-commont" />
         <module name="xsl-authority-dao" />
+        <module name="xsl-authority-export" />
         <module name="xsl-authority-pojo" />
         <module name="xsl-authority-service" />
         <module name="xsl-authority-web" />

@@ -1,9 +1,8 @@
-package com.xsl.authority.export.impl;
+package com.xsl.authority.export;
 
 import com.xsl.authority.mapper.SearchLevelMapper;
 import com.xsl.authority.pojo.XslHunterLevel;
 import com.xsl.authority.pojo.XslMasterLevel;
-import com.xsl.authority.export.SearchLevelService;
 import com.xsl.authority.utils.XslResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,7 +44,6 @@ public class SearchLevelServiceImpl implements SearchLevelService {
     @Override
     public XslResult getMasterLevelInfo(Integer level) {
         XslMasterLevel xslMasterLevel = searchLevelMapper.getMatserLevelInfo(level);
-        System.out.print(xslMasterLevel.getName());
         try {
             if(xslMasterLevel==null)
                 return XslResult.build(500,"获取等级信息失败");

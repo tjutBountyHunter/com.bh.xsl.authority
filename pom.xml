@@ -14,6 +14,7 @@
     <module>xsl-authority-service</module>
     <module>xsl-authority-web</module>
     <module>xsl-authority-commont</module>
+    <module>xsl-authority-export</module>
   </modules>
 
   <name>Maven</name>

@@ -1,7 +1,6 @@
-package com.xsl.authority.export.impl;
+package com.xsl.authority.export;
 
 import com.xsl.authority.mapper.SearchExperienceMapper;
-import com.xsl.authority.export.SearchExperienceService;
 import com.xsl.authority.utils.XslResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +18,6 @@ public class SearchExperienceServiceImpl implements SearchExperienceService {
     @Override
     public XslResult getHunterExperience(Integer level) {
         Integer experience = searchExperienceMapper.getHunterExperience(level);
-        System.out.println(experience);
         if (experience != null) {
             return XslResult.ok(experience);
         } else {

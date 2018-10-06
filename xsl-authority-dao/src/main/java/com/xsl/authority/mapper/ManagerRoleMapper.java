@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface ManagerRoleMapper {
 
-    @Select("select id,name,state,createDate,updateDate from xsl_role")
+    @Select("select id,name,state,createDate,updateDate from xsl_role where state=0")
     List<XslRole> getManagerRoles();
 
     void insertManagerRoles(HashMap map);

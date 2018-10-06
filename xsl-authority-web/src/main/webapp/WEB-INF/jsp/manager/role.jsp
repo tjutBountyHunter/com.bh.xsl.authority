@@ -132,6 +132,7 @@
                         if ( data.status==200 ) {
                             $("#rightList").append(opts);
                             layer.msg("分配角色数据成功", {time:2000, icon:6}, function(){
+                                window.location.href = "${APP_PATH}/managers/index";
                             });
                         } else {
                             layer.msg("分配角色数据失败", {time:2000, icon:5, shift:6}, function(){

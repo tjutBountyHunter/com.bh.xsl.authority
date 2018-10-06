@@ -1,6 +1,8 @@
 package com.xsl.authority.pojo;
 
-public class XslMasterLevel {
+import java.io.Serializable;
+
+public class XslMasterLevel implements Serializable{
     private Integer id;
 
     private Short level;

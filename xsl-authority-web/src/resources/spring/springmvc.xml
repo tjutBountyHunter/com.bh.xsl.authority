@@ -13,6 +13,8 @@
         <!--false只扫描控制器-->
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+
+    <context:property-placeholder location="classpath:resource/resource.properties"/>
     <!--配置视图解析器，方便页面返回-->
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -41,6 +43,13 @@
             <!--<bean class="com.xsl.authority.web.AuthInterceptor"></bean>-->
         <!--</mvc:interceptor>-->
     <!--</mvc:interceptors>-->
+    <!-- 5.拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.xsl.authority.web.LoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" p:defaultEncoding="UTF-8" >
         <property name="maxUploadSize" value="2097152"/>
         <property name="resolveLazily" value="true"/>

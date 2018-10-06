@@ -4,7 +4,6 @@ import com.xsl.authority.pojo.PageDataResult;
 import com.xsl.authority.pojo.XslMasterLevelExperience;
 import com.xsl.authority.service.MasterLevelExperienceService;
 import com.xsl.authority.utils.XslResult;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
